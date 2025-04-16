@@ -2,45 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- IE Compatibility -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Responsive & Mobile Compatibility -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a192f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Favicon and Apple Touch Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
   <title>Abu Awaish - Data Science Portfolio</title>
+
   <!-- Bootstrap, AOS, and updated Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
   <style>
     :root {
-      --primary: #1a1a1a;
-      --secondary: #00CED1;
-      --accent: #FF6B6B;
-      --text: #e0e0e0;
+      --primary: #0a192f;
+      --secondary: #64ffda;
+      --accent: #ff5252;
+      --text: #ccd6f6;
+      --light-text: #8892b0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: linear-gradient(45deg, #141414, #212121);
+      background-color: var(--primary);
       color: var(--text);
-      font-family: 'Segoe UI', sans-serif;
-      line-height: 1.6;
+      font-family: 'Calibri', 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
     }
 
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),
+      background: linear-gradient(rgba(10, 25, 47, 0.80), rgba(10, 25, 47, 0.80)),
                   url('https://i.pinimg.com/originals/75/87/df/7587df77ef521cf98057d0028ee983f1.gif');
       background-size: cover;
       background-position: center;
       position: relative;
-      overflow: hidden;
     }
 
     .section-title {
       color: var(--secondary);
       position: relative;
       padding-bottom: 15px;
-      margin-bottom: 40px;
+      margin-bottom: 2.5rem;
       font-weight: 600;
+      font-size: 2.5rem;
     }
 
     .section-title::after {
@@ -48,122 +69,139 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 60px;
-      height: 3px;
+      width: 70px;
+      height: 2px;
       background: var(--accent);
-      border-radius: 2px;
     }
 
     .skill-badge {
-      background: rgba(0, 206, 209, 0.1);
+      background: rgba(100, 255, 218, 0.1);
       color: var(--secondary);
       border: 1px solid var(--secondary);
-      margin: 5px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(5px);
+      margin: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
     }
 
     .skill-badge:hover {
       transform: translateY(-3px);
-      background: var(--secondary);
-      color: var(--primary);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
     }
 
     .project-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      overflow: hidden;
+      background: rgba(17, 34, 64, 0.5);
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      height: 100%;
     }
 
     .project-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
     }
 
     .timeline {
       position: relative;
-      padding-left: 30px;
+      padding-left: 3rem;
     }
 
     .timeline::before {
       content: '';
       position: absolute;
-      left: 5px;
+      left: 7px;
       top: 0;
       height: 100%;
       width: 2px;
-      background: var(--secondary);
+      background: var(--light-text);
     }
 
     .timeline-item {
       position: relative;
-      margin-bottom: 40px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 8px;
-      padding: 20px;
-      padding-left: 30px;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
     }
 
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -10px;
-      top: 20px;
-      width: 20px;
-      height: 20px;
-      background: var(--accent);
+      left: -4px;
+      top: 10px;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border: 3px solid var(--secondary);
       border-radius: 50%;
-      border: 4px solid var(--secondary);
-      box-shadow: 0 0 15px rgba(0, 206, 209, 0.3);
     }
 
     .hobby-icon {
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: var(--secondary);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .hobby-icon:hover {
-      transform: scale(1.2) rotate(15deg);
       color: var(--accent);
+      transform: translateY(-5px);
     }
 
     .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 25px;
-      margin-bottom: 30px;
+      background: rgba(17, 34, 64, 0.5);
+      border-radius: 10px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-custom {
+      background: transparent;
+      color: var(--secondary);
+      border: 2px solid var(--secondary);
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background: rgba(100, 255, 218, 0.1);
+      transform: translateY(-3px);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      background: var(--primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
+
   <!-- Hero Section -->
   <section class="hero">
-    <div class="container text-center" data-aos="zoom-in">
-      <h1 class="display-3 fw-bold mb-3 text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">ABU AWAISH</h1>
-      <div class="d-flex justify-content-center gap-3 mb-4">
-        <span class="text-light">Koderma, Jharkhand</span>
-        <span class="text-light">•</span>
-        <a href="tel:+919155519661" class="text-decoration-none text-light">+91 91555 19661</a>
-      </div>
-      <div class="d-flex gap-3 justify-content-center mb-4">
-        <a href="mailto:abuawaishr@gmail.com" class="btn btn-outline-light btn-lg px-4">
-          <i class="fas fa-envelope me-2" aria-hidden="true"></i>Email
+    <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+      <h6 class="text-secondary mb-4">Hi, my name is</h6>
+      <h1 class="display-3 fw-bold mb-4 text-white">Abu Awaish.</h1>
+      <h2 class="h3 text-light mb-5">Data Science & Machine Learning Enthusiast.</h2>
+
+      <div class="d-flex gap-3 justify-content-center mb-5">
+        <a href="mailto:abuawaishr@gmail.com" class="btn btn-custom">
+          <i class="fas fa-envelope me-2"></i>Get In Touch
         </a>
-        <a href="https://drive.google.com/file/d/1H-EuJeq7ngsvcTLtJmdmC7_i8lkpxpa5/view" class="btn btn-outline-light btn-lg px-4">
-          <i class="fas fa-download me-2" aria-hidden="true"></i>Resume
+        <a href="https://drive.google.com/file/d/1H-EuJeq7ngsvcTLtJmdmC7_i8lkpxpa5/view" class="btn btn-custom">
+          <i class="fas fa-file-alt me-2"></i>View Resume
         </a>
       </div>
-      <div class="social-links mt-4">
-        <a href="https://www.linkedin.com/in/abu-awaish-a6523b258/" class="text-light mx-3" style="font-size: 1.0rem;">
-          <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+
+      <div class="social-links mt-5">
+        <a href="https://www.linkedin.com/in/abu-awaish-a6523b258/" class="text-secondary mx-3 h3">
+          <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://github.com/abuawaish" class="text-light mx-3" style="font-size: 1.0rem;">
-          <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+        <a href="https://github.com/abuawaish" class="text-secondary mx-3 h3">
+          <i class="fab fa-github"></i>
         </a>
       </div>
     </div>
@@ -173,9 +211,19 @@
   <section class="py-5">
     <div class="container glass-card" data-aos="fade-up">
       <h2 class="section-title">About Me</h2>
-      <p class="lead">I am an aspiring Data Scientist currently preparing to enter the field of data science, coding, and problem-solving. Passionate about working with data, I am learning how to clean, analyze, and interpret complex datasets to extract valuable insights.</p>
-      <p>Building skills in programming (Python, SQL), machine learning, and data analysis through hands-on projects. Focusing on developing a strong foundation in statistics, algorithms, and AI to become a proficient data professional.</p>
-      <p>With a continuous learning mindset, I am eager to explore new technologies, tackle challenges, and grow into a skilled data scientist</p>
+      <div class="row">
+        <div class="col-lg-8">
+          <p class="lead text-light">I'm an aspiring data scientist passionate about transforming raw data into meaningful insights. Currently enhancing my expertise in machine learning and statistical analysis through hands-on projects.</p>
+          <p>My technical journey includes proficiency in Python, SQL, and data visualization tools, complemented by a strong foundation in computer science principles. I thrive on solving complex problems and continuously expanding my skill set.</p>
+          <p class="text-secondary">Here are a few technologies I've been working with recently:</p>
+          <ul class="skill-list">
+            <li>Python & Data Science Stack</li>
+            <li>SQL & Database Management</li>
+            <li>Machine Learning Fundamentals</li>
+            <li>Web Scraping & Automation</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -218,9 +266,9 @@
               <i class="fas fa-code me-2" aria-hidden="true"></i>Languages
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-2 px-3 rounded-pill">Python</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">SQL</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Java</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Python</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">SQL</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Java</span>
             </div>
           </div>
         </div>
@@ -231,9 +279,9 @@
               <i class="fas fa-tools me-2" aria-hidden="true"></i>Developer Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-2 px-3 rounded-pill">VS Code</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Jupyter</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">PyCharm</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">VS Code</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Jupyter</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">PyCharm</span>
             </div>
           </div>
         </div>
@@ -244,9 +292,9 @@
               <i class="fas fa-chart-pie me-2" aria-hidden="true"></i>Analytic Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-2 px-3 rounded-pill">Pandas</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">NumPy</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">MySql</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Pandas</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">NumPy</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">MySql</span>
             </div>
           </div>
         </div>
@@ -254,12 +302,12 @@
         <div class="col-md-4" data-aos="zoom-in">
           <div class="glass-card">
             <h4 class="text-secondary mb-3">
-              <i class="fas fa-laptop-code me-2" aria-hidden="true"></i>Technologies/Frameworks
+              <i class="fas fa-laptop-code me-1" aria-hidden="true"></i>Technologies/Frameworks
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-2 px-3 rounded-pill">Postman</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Flask</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Selenium</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Postman</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Flask</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Selenium</span>
             </div>
           </div>
         </div>
@@ -270,9 +318,9 @@
               <i class="fas fa-chart-line me-2" aria-hidden="true"></i>Visualization Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-2 px-3 rounded-pill">Matplotlib</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Seaborn</span>
-              <span class="skill-badge py-2 px-3 rounded-pill">Plotly</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Matplotlib</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Seaborn</span>
+              <span class="skill-badge py-1 px-2 rounded-pill">Plotly</span>
             </div>
           </div>
         </div>
@@ -289,7 +337,7 @@
           <div class="project-card p-4 h-100">
             <h4>Weather Application</h4>
             <p class="text-secondary">Python, HTML/CSS</p>
-            <p>Developed a weather application that fetches real-time data using weather API</p>
+            <p>Developed a weather application that fetches real-time data using a weather API</p>
             <div class="d-flex justify-content-between align-items-center">
               <span class="text-accent">04/2024 – 05/2024</span>
               <a href="https://weather-app-l77v.onrender.com/weather_app" class="btn btn-sm btn-secondary">Live Link</a>
@@ -356,7 +404,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- Interests Section -->
   <section class="py-5 bg-dark">
