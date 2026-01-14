@@ -24,13 +24,21 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
+  <!-- Particle.js for background effects -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
   <style>
     :root {
-      --primary: #0a192f;
-      --secondary: #64ffda;
-      --accent: #ff5252;
-      --text: #ccd6f6;
-      --light-text: #8892b0;
+      --primary-dark: #0a0e17;
+      --primary: #131a2d;
+      --secondary: #7c3aed;
+      --secondary-light: #a78bfa;
+      --accent: #06d6a0;
+      --accent-alt: #ff6b6b;
+      --text: #f8fafc;
+      --text-secondary: #94a3b8;
+      --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+      --gradient-accent: linear-gradient(135deg, #06d6a0 0%, #3b82f6 100%);
     }
 
     html {
@@ -38,48 +46,153 @@
     }
 
     body {
-      background-color: var(--primary);
+      background-color: var(--primary-dark);
       color: var(--text);
-      font-family: 'Calibri', 'Segoe UI', sans-serif;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
       line-height: 1.8;
       overflow-x: hidden;
     }
 
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--primary-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-primary);
+      border-radius: 5px;
+    }
+
+    /* Particle background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Hero Section with floating animation */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(rgba(10, 25, 47, 0.80), rgba(10, 25, 47, 0.80)),
-                  url('https://i.pinimg.com/originals/75/87/df/7587df77ef521cf98057d0028ee983f1.gif');
-      background-size: cover;
-      background-position: center;
       position: relative;
+      overflow: hidden;
     }
 
-    .social-links a {
-      transition: all 0.3s ease;
-      display: inline-block;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(6, 214, 160, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      z-index: -1;
     }
 
-    .social-links a:hover {
-      color: var(--accent);
-      transform: scale(1.2);
-      animation: bounce 1.0s ease;
+    .hero-content {
+      position: relative;
+      z-index: 2;
     }
 
-    @keyframes bounce {
-      0%   { transform: scale(1) translateY(0); }
-      50%  { transform: scale(1.2) translateY(-5px); }
-      100% { transform: scale(1) translateY(0); }
+    /* Floating animation for hero elements */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Gradient text effect */
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Enhanced button styles */
+    .btn-custom {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid transparent;
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      z-index: 1;
+    }
+
+    .btn-custom::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: var(--gradient-primary);
+      transition: all 0.4s ease;
+      z-index: -1;
+    }
+
+    .btn-custom:hover::before {
+      width: 100%;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+      color: white;
+    }
+
+    .btn-outline-custom {
+      background: transparent;
+      border: 2px solid var(--secondary);
+      color: var(--text);
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-outline-custom:hover {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Section styling */
+    .section {
+      padding: 5rem 0;
+      position: relative;
     }
 
     .section-title {
-      color: var(--secondary);
+      color: var(--text);
       position: relative;
-      padding-bottom: 15px;
-      margin-bottom: 2.5rem;
-      font-weight: 600;
-      font-size: 2.5rem;
+      padding-bottom: 20px;
+      margin-bottom: 3rem;
+      font-weight: 700;
+      font-size: 2.8rem;
     }
 
     .section-title::after {
@@ -87,39 +200,78 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 70px;
-      height: 2px;
-      background: var(--accent);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
     }
 
+    /* Enhanced skill badges with 3D effect */
     .skill-badge {
-      background: rgba(100, 255, 218, 0.1);
-      color: var(--secondary);
-      border: 1px solid var(--secondary);
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--text);
+      border: 1px solid rgba(124, 58, 237, 0.3);
       margin: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .skill-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      transition: all 0.4s ease;
+      z-index: -1;
+    }
+
+    .skill-badge:hover::before {
+      left: 0;
     }
 
     .skill-badge:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+      border-color: transparent;
+      color: white;
     }
 
+    /* Enhanced project cards with glass morphism */
     .project-card {
-      background: rgba(17, 34, 64, 0.5);
-      border-radius: 8px;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      border: 1px solid rgba(100, 255, 218, 0.1);
+      background: rgba(19, 26, 45, 0.7);
+      border-radius: 12px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(124, 58, 237, 0.2);
       height: 100%;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-primary);
     }
 
     .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: var(--secondary);
     }
 
+    /* Timeline enhancement */
     .timeline {
       position: relative;
       padding-left: 3rem;
@@ -128,153 +280,305 @@
     .timeline::before {
       content: '';
       position: absolute;
-      left: 7px;
+      left: 16px;
       top: 0;
       height: 100%;
-      width: 2px;
-      background: var(--light-text);
+      width: 3px;
+      background: var(--gradient-primary);
     }
 
     .timeline-item {
       position: relative;
       margin-bottom: 3rem;
-      padding-left: 2rem;
+      padding-left: 2.5rem;
+      background: rgba(19, 26, 45, 0.7);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--secondary);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -4px;
-      top: 10px;
-      width: 16px;
-      height: 16px;
-      background: var(--primary);
-      border: 3px solid var(--secondary);
+      left: -10px;
+      top: 24px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-dark);
+      border: 4px solid var(--secondary);
       border-radius: 50%;
     }
 
+    /* Hover effects for social links */
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(19, 26, 45, 0.7);
+      border-radius: 50%;
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin: 0 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: -1;
+    }
+
+    .social-links a:hover::before {
+      opacity: 1;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px) scale(1.1);
+      color: white;
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Hobby icons enhancement */
     .hobby-icon {
-      font-size: 2.5rem;
-      color: var(--secondary);
-      transition: all 0.3s ease;
+      font-size: 2.8rem;
+      color: var(--text);
+      transition: all 0.4s ease;
+      display: inline-block;
+      padding: 1.5rem;
+      background: rgba(19, 26, 45, 0.7);
+      border-radius: 12px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
     }
 
     .hobby-icon:hover {
-      color: var(--accent);
-      transform: translateY(-5px);
+      color: white;
+      background: var(--gradient-primary);
+      transform: translateY(-10px) rotate(5deg);
+      box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
     }
 
+    /* Glass morphism effect */
     .glass-card {
-      background: rgba(17, 34, 64, 0.5);
-      border-radius: 10px;
-      border: 1px solid rgba(100, 255, 218, 0.1);
-      padding: 2rem;
+      background: rgba(19, 26, 45, 0.7);
+      border-radius: 16px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      padding: 2.5rem;
       margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
     }
 
-    .btn-custom {
-      background: transparent;
-      color: var(--secondary);
-      border: 2px solid var(--secondary);
-      padding: 1rem 2rem;
-      transition: all 0.3s ease;
+    .glass-card:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     }
 
-    .btn-custom:hover {
-      background: rgba(100, 255, 218, 0.1);
-      transform: translateY(-3px);
+    /* Progress bars for skills */
+    .progress-container {
+      margin-bottom: 1.5rem;
     }
 
-    ::-webkit-scrollbar {
-      width: 8px;
-      background: var(--primary);
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--secondary);
+    .progress-bar-custom {
+      height: 8px;
+      background-color: rgba(30, 41, 59, 0.7);
       border-radius: 4px;
+      overflow: hidden;
     }
 
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 4px;
+      transition: width 1.5s ease-in-out;
+    }
+
+    /* Footer enhancement */
     footer {
       text-align: center;
-      padding: 1rem;
-      color: var(--light-text);
+      padding: 2rem;
+      color: var(--text-secondary);
       font-size: 0.9rem;
-      background-color: rgba(10, 25, 47, 0.9);
-      border-top: 1px solid rgba(100, 255, 218, 0.1);
+      background: rgba(10, 14, 23, 0.9);
+      border-top: 1px solid rgba(124, 58, 237, 0.2);
+      position: relative;
     }
 
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .social-links a {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Animation for page load */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    /* Typewriter effect for hero subtitle */
+    .typewriter {
+      overflow: hidden;
+      border-right: 3px solid var(--accent);
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: 0.15em;
+      animation:
+        typing 3.5s steps(40, end),
+        blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent); }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
-      <h6 class="text-secondary mb-4">Hi, my name is</h6>
-      <h1 class="display-3 fw-bold mb-4 text-white">Abu Awaish.</h1>
-      <h2 class="h3 text-light mb-5">Data Science & Machine Learning Enthusiast.</h2>
+  <section class="hero section">
+    <div class="container text-center hero-content">
+      <div data-aos="fade-up" data-aos-delay="100">
+        <h6 class="text-secondary-light mb-4 floating" style="animation-delay: 0.2s">Hi, my name is</h6>
+        <h1 class="display-3 fw-bold mb-4 gradient-text floating" style="animation-delay: 0.4s">Abu Awaish.</h1>
+        <h2 class="h2 text-light mb-5 typewriter">Data Science & Machine Learning Enthusiast.</h2>
 
-      <div class="d-flex gap-3 justify-content-center mb-5">
-        <a href="mailto:abuawaishr@gmail.com" class="btn btn-custom">
-          <i class="fas fa-envelope me-2"></i>Get In Touch
-        </a>
-        <a href="https://drive.google.com/file/d/1H-EuJeq7ngsvcTLtJmdmC7_i8lkpxpa5/view" target="_blank" class="btn btn-custom">
-          <i class="fas fa-file-alt me-2"></i>View Resume
-        </a>
-      </div>
+        <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+          <a href="mailto:abuawaishr@gmail.com" class="btn btn-custom fade-in-up" style="animation-delay: 0.8s">
+            <i class="fas fa-envelope me-2"></i>Get In Touch
+          </a>
+          <a href="https://drive.google.com/file/d/1H-EuJeq7ngsvcTLtJmdmC7_i8lkpxpa5/view" target="_blank" class="btn btn-outline-custom fade-in-up" style="animation-delay: 1s">
+            <i class="fas fa-file-alt me-2"></i>View Resume
+          </a>
+        </div>
 
-      <div class="social-links mt-5">
-        <a href="https://www.linkedin.com/in/abu-awaish-a6523b258/" target="_blank" class="text-secondary mx-3 h3">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/abuawaish" target="_blank" class="text-secondary mx-3 h3">
-          <i class="fab fa-github"></i>
-        </a>
+        <div class="social-links mt-5">
+          <a href="https://www.linkedin.com/in/abu-awaish-a6523b258/" target="_blank" class="fade-in-up" style="animation-delay: 1.2s">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/abuawaish" target="_blank" class="fade-in-up" style="animation-delay: 1.4s">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section class="py-5">
-    <div class="container glass-card" data-aos="fade-up">
-      <h2 class="section-title">About Me</h2>
-      <div class="row">
-        <div class="col-lg-8">
-          <p class="lead text-light">I'm an aspiring data scientist passionate about transforming raw data into meaningful insights. Currently enhancing my expertise in machine learning and statistical analysis through hands-on projects.</p>
-          <p>My technical journey includes proficiency in Python, SQL, and data visualization tools, complemented by a strong foundation in computer science principles. I thrive on solving complex problems and continuously expanding my skill set.</p>
-          <p class="text-secondary">Here are a few technologies I've been working with recently:</p>
-          <ul class="skill-list">
-            <li>Python & Data Science Stack</li>
-            <li>SQL & Database Management</li>
-            <li>Machine Learning Fundamentals</li>
-            <li>Web Scraping & Automation</li>
-          </ul>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-right">About Me</h2>
+      <div class="row align-items-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="glass-card">
+            <p class="lead text-light mb-4">I'm an aspiring data scientist passionate about transforming raw data into meaningful insights. Currently enhancing my expertise in machine learning and statistical analysis through hands-on projects.</p>
+            <p class="mb-4">My technical journey includes proficiency in Python, SQL, and data visualization tools, complemented by a strong foundation in computer science principles. I thrive on solving complex problems and continuously expanding my skill set.</p>
+            <p class="text-secondary-light mb-3">Here are a few technologies I've been working with recently:</p>
+            <div class="d-flex flex-wrap">
+              <span class="skill-badge">Python & Data Science Stack</span>
+              <span class="skill-badge">SQL & Database Management</span>
+              <span class="skill-badge">Machine Learning Fundamentals</span>
+              <span class="skill-badge">Web Scraping & Automation</span>
+              <span class="skill-badge">Statistical Analysis</span>
+              <span class="skill-badge">Data Visualization</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
+          <div class="glass-card text-center">
+            <div class="mb-4">
+              <i class="fas fa-chart-line fa-3x gradient-text"></i>
+            </div>
+            <h4 class="mb-3">Data-Driven Solutions</h4>
+            <p>Turning complex data into actionable insights through advanced analytics and machine learning.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Education Section -->
-  <section class="py-5 bg-dark">
+  <section class="section bg-dark">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Education</h2>
       <div class="timeline">
         <div class="timeline-item" data-aos="fade-up">
           <h4>Ramgarh Engineering College</h4>
-          <p class="text-secondary">B.Tech, Computer Science and Engineering</p>
+          <p class="text-secondary-light">B.Tech, Computer Science and Engineering</p>
           <p>CGPA: 8.0 | 2021 – 2024</p>
           <small>Ramgarh, Jharkhand</small>
         </div>
-        <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
           <h4>Al Kabir Polytechnic College</h4>
-          <p class="text-secondary">Diploma, Computer Science and Engineering</p>
+          <p class="text-secondary-light">Diploma, Computer Science and Engineering</p>
           <p>Percentage: 75.5% | 2018 – 2021</p>
           <small>Jamshedpur, Jharkhand</small>
         </div>
-        <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
           <h4>Adarsh +2 Uchcha Vidyalaya</h4>
-          <p class="text-secondary">Matriculation</p>
+          <p class="text-secondary-light">Matriculation</p>
           <p>Percentage: 60.1% | 2017 – 2018</p>
           <small>Koderma, Jharkhand</small>
         </div>
@@ -283,72 +587,107 @@
   </section>
 
   <!-- Technical Skills Section -->
-  <section class="py-5">
+  <section class="section">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Technical Skills</h2>
       <div class="row g-4">
         <!-- Languages -->
         <div class="col-md-4" data-aos="zoom-in">
-          <div class="glass-card">
-            <h4 class="text-secondary mb-3">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
               <i class="fas fa-code me-2" aria-hidden="true"></i>Languages
             </h4>
-            <div class="d-flex flex-wrap">
-              <span class="skill-badge py-1 px-2 rounded-pill">Python</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">SQL</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Java</span>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>Python</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" data-width="90"></div>
+              </div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>SQL</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" data-width="85"></div>
+              </div>
             </div>
           </div>
         </div>
         <!-- Developer Tools -->
-        <div class="col-md-4" data-aos="zoom-in">
-          <div class="glass-card">
-            <h4 class="text-secondary mb-3">
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
               <i class="fas fa-tools me-2" aria-hidden="true"></i>Developer Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-1 px-2 rounded-pill">VS Code</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Jupyter</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">PyCharm</span>
+              <span class="skill-badge">VS Code</span>
+              <span class="skill-badge">Jupyter</span>
+              <span class="skill-badge">PyCharm</span>
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">MySQL</span>
+              <span class="skill-badge">Postman</span>
             </div>
           </div>
         </div>
         <!-- Analytic Tools -->
-        <div class="col-md-4" data-aos="zoom-in">
-          <div class="glass-card">
-            <h4 class="text-secondary mb-3">
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
               <i class="fas fa-chart-pie me-2" aria-hidden="true"></i>Analytic Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-1 px-2 rounded-pill">Pandas</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">NumPy</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Statsmodels</span>
+              <span class="skill-badge">Pandas</span>
+              <span class="skill-badge">NumPy</span>
+              <span class="skill-badge">Statsmodels</span>
+              <span class="skill-badge">SciPy</span>
+              <span class="skill-badge">Scikit-learn</span>
+              <span class="skill-badge">TensorFlow</span>
             </div>
           </div>
         </div>
         <!-- Technologies/Frameworks -->
-        <div class="col-md-4" data-aos="zoom-in">
-          <div class="glass-card">
-            <h4 class="text-secondary mb-3">
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
               <i class="fas fa-laptop-code me-2" aria-hidden="true"></i>Technologies & Frameworks
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-1 px-2 rounded-pill">Flask</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Selenium</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Streamlit</span>
+              <span class="skill-badge">Flask</span>
+              <span class="skill-badge">Selenium</span>
+              <span class="skill-badge">Streamlit</span>
+              <span class="skill-badge">FastAPI</span>
+              <span class="skill-badge">Selenium</span>
             </div>
           </div>
         </div>
         <!-- Visualization Tools -->
-        <div class="col-md-4" data-aos="zoom-in">
-          <div class="glass-card">
-            <h4 class="text-secondary mb-3">
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
               <i class="fas fa-chart-line me-2" aria-hidden="true"></i>Visualization Tools
             </h4>
             <div class="d-flex flex-wrap">
-              <span class="skill-badge py-1 px-2 rounded-pill">Matplotlib</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Seaborn</span>
-              <span class="skill-badge py-1 px-2 rounded-pill">Plotly</span>
+              <span class="skill-badge">Matplotlib</span>
+              <span class="skill-badge">Seaborn</span>
+              <span class="skill-badge">Plotly</span>
+            </div>
+          </div>
+        </div>
+        <!-- Databases -->
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="glass-card h-100">
+            <h4 class="gradient-text mb-4">
+              <i class="fas fa-database me-2" aria-hidden="true"></i>Databases
+            </h4>
+            <div class="d-flex flex-wrap">
+              <span class="skill-badge">MySQL</span>
+              <span class="skill-badge">MongoDB</span>
+              <span class="skill-badge">SQLite</span>
+              <span class="skill-badge">VectorDB</span>
             </div>
           </div>
         </div>
@@ -357,40 +696,49 @@
   </section>
 
   <!-- Projects Section -->
-  <section class="py-5 bg-dark">
+  <section class="section bg-dark">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Projects</h2>
       <div class="row g-4">
         <div class="col-md-4" data-aos="flip-left">
           <div class="project-card p-4 h-100">
-            <h4>Myntra Scraper</h4>
-            <p class="text-secondary">Python, Flask, Selenium (web scraping), Pandas (data processing), Bootstrap 5 (UI), JavaScript (progress handling)</p>
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-code-branch fa-2x gradient-text me-3"></i>
+              <h4 class="mb-0">Myntra Scraper</h4>
+            </div>
+            <p class="text-secondary-light">Python, Flask, Selenium (web scraping), Pandas (data processing), Bootstrap 5 (UI), JavaScript (progress handling)</p>
             <p>A Flask-based web application that scrapes product data from Myntra.com based on user search queries. It features real-time progress tracking and displays structured results in a clean dashboard.</p>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mt-4">
               <span class="text-accent">02/2025 – 04/2025</span>
-              <a href="https://github.com/abuawaish/myntra-scraper" target="_blank" class="btn btn-sm btn-secondary">Git Link</a>
+              <a href="https://github.com/abuawaish/myntra-scraper" target="_blank" class="btn btn-sm btn-outline-custom">GitHub <i class="fas fa-external-link-alt ms-1"></i></a>
             </div>
           </div>
         </div>
-        <div class="col-md-4" data-aos="flip-left">
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
           <div class="project-card p-4 h-100">
-            <h4>PDF Insight Analyzer</h4>
-            <p class="text-secondary">Python, Flask, Hugging Face (NLP), SentenceTransformers, Qdrant (vector DB), PyPDF2, HTML, CSS</p>
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-file-pdf fa-2x gradient-text me-3"></i>
+              <h4 class="mb-0">PDF Insight Analyzer</h4>
+            </div>
+            <p class="text-secondary-light">Python, Flask, Hugging Face (NLP), SentenceTransformers, Qdrant (vector DB), PyPDF2, HTML, CSS</p>
             <p>PDF Insight Analyzer is an AI-powered web app that lets users upload PDFs and ask natural-language questions about their content. It extracts text, generates semantic embeddings, and enables intelligent search and insights using vector databases and NLP models.</p>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mt-4">
               <span class="text-accent">03/2025 – 06/2025</span>
-              <a href="https://github.com/abuawaish/pdf-insight-analyzer" target="_blank" class="btn btn-sm btn-secondary">Git Link</a>
+              <a href="https://github.com/abuawaish/pdf-insight-analyzer" target="_blank" class="btn btn-sm btn-outline-custom">GitHub <i class="fas fa-external-link-alt ms-1"></i></a>
             </div>
           </div>
         </div>
-        <div class="col-md-4" data-aos="flip-left">
+        <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
           <div class="project-card p-4 h-100">
-            <h4>MySQL CRUD Application</h4>
-            <p class="text-secondary">Python, Flask, Flask-MySQLdb, MySQL, python-dotenv, REST APIs</p>
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-database fa-2x gradient-text me-3"></i>
+              <h4 class="mb-0">MySQL CRUD Application</h4>
+            </div>
+            <p class="text-secondary-light">Python, Flask, Flask-MySQLdb, MySQL, python-dotenv, REST APIs</p>
             <p>It is a Python package and Flask-based framework that simplifies building dynamic, MySQL-powered web applications. It provides a web UI for database configuration, template rendering, and RESTful endpoints for executing SQL queries and performing CRUD operations.</p>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mt-4">
               <span class="text-accent">12/2024 – 02/2025</span>
-              <a href="https://pypi.org/project/PyAwaish/" target="_blank" class="btn btn-sm btn-secondary">Pypi Link</a>
+              <a href="https://pypi.org/project/PyAwaish/" target="_blank" class="btn btn-sm btn-outline-custom">PyPI <i class="fas fa-external-link-alt ms-1"></i></a>
             </div>
           </div>
         </div>
@@ -399,33 +747,39 @@
   </section>
 
   <!-- Internship & Certification Section -->
-  <section class="py-5">
+  <section class="section">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Internship & Certification</h2>
       <div class="row g-4">
         <div class="col-md-6" data-aos="fade-up">
-          <div class="glass-card d-flex flex-column justify-content-between h-100">
+          <div class="glass-card h-100 d-flex flex-column justify-content-between">
             <div>
-              <h4>Full Stack Data Science Pro</h4>
-              <p class="text-secondary">PW Skills</p>
-              <p>Completed comprehensive training in data science tools and techniques</p>
-              <span class="badge bg-secondary">08/2023 – 01/2025</span>
+              <div class="d-flex align-items-center mb-3">
+                <i class="fas fa-certificate fa-2x gradient-text me-3"></i>
+                <h4 class="mb-0">Full Stack Data Science Pro</h4>
+              </div>
+              <p class="text-secondary-light">PW Skills</p>
+              <p>Completed comprehensive training in data science tools and techniques including machine learning, data visualization, and big data processing.</p>
+              <span class="badge bg-gradient-primary">08/2023 – 01/2025</span>
             </div>
             <div class="text-end mt-3">
-              <a href="https://pwskills.com/learn/certificate/da825e45-a467-4a27-a63a-942be292259b/" target="_blank" class="btn btn-sm btn-outline-primary">View Certification</a>
+              <a href="https://pwskills.com/learn/certificate/da825e45-a467-4a27-a63a-942be292259b/" target="_blank" class="btn btn-sm btn-outline-custom">View Certification <i class="fas fa-external-link-alt ms-1"></i></a>
             </div>
           </div>
         </div>
-        <div class="col-md-6" data-aos="fade-up">
-          <div class="glass-card d-flex flex-column justify-content-between h-100">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="glass-card h-100 d-flex flex-column justify-content-between">
             <div>
-              <h4>Type Annotations in Python</h4>
-              <p class="text-secondary">Udemy Certification</p>
-              <p>Gained expertise in Python's type annotation system</p>
-              <span class="badge bg-secondary">04/2024 – 06/2024</span>
+              <div class="d-flex align-items-center mb-3">
+                <i class="fab fa-python fa-2x gradient-text me-3"></i>
+                <h4 class="mb-0">Type Annotations in Python</h4>
+              </div>
+              <p class="text-secondary-light">Udemy Certification</p>
+              <p>Gained expertise in Python's type annotation system for better code readability, maintainability, and error prevention in large codebases.</p>
+              <span class="badge bg-gradient-primary">04/2024 – 06/2024</span>
             </div>
             <div class="text-end mt-3">
-              <a href="https://www.udemy.com/certificate/UC-b48415d6-7e52-4633-81a9-a2f516838e0c/" target="_blank" class="btn btn-sm btn-outline-primary">View Certification</a>
+              <a href="https://www.udemy.com/certificate/UC-b48415d6-7e52-4633-81a9-a2f516838e0c/" target="_blank" class="btn btn-sm btn-outline-custom">View Certification <i class="fas fa-external-link-alt ms-1"></i></a>
             </div>
           </div>
         </div>
@@ -434,43 +788,148 @@
   </section>
 
   <!-- Interests Section -->
-  <section class="py-5 bg-dark">
+  <section class="section bg-dark">
     <div class="container text-center">
       <h2 class="section-title" data-aos="fade-right">Interests</h2>
       <div class="row g-4">
-        <div class="col-3" data-aos="zoom-in">
-          <i class="fas fa-swimmer hobby-icon" aria-hidden="true"></i>
-          <p class="mt-2">Swimming</p>
+        <div class="col-6 col-md-3" data-aos="zoom-in">
+          <div class="hobby-icon">
+            <i class="fas fa-swimmer" aria-hidden="true"></i>
+          </div>
+          <h5 class="mt-3 mb-1">Swimming</h5>
+          <p class="text-secondary-light small">Staying active and refreshed</p>
         </div>
-        <div class="col-3" data-aos="zoom-in">
-          <i class="fas fa-paw hobby-icon" aria-hidden="true"></i>
-          <p class="mt-2">Animal Rescue</p>
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+          <div class="hobby-icon">
+            <i class="fas fa-paw" aria-hidden="true"></i>
+          </div>
+          <h5 class="mt-3 mb-1">Animal Rescue</h5>
+          <p class="text-secondary-light small">Helping animals in need</p>
         </div>
-        <div class="col-3" data-aos="zoom-in">
-          <!-- Updated cricket icon to use a supported alternative -->
-          <i class="fas fa-baseball-ball hobby-icon" aria-hidden="true"></i>
-          <p class="mt-2">Playing Cricket</p>
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+          <div class="hobby-icon">
+            <i class="fas fa-baseball-ball" aria-hidden="true"></i>
+          </div>
+          <h5 class="mt-3 mb-1">Playing Cricket</h5>
+          <p class="text-secondary-light small">Team sports enthusiast</p>
         </div>
-        <div class="col-3" data-aos="zoom-in">
-          <i class="fas fa-volleyball-ball hobby-icon" aria-hidden="true"></i>
-          <p class="mt-2">Playing Volleyball</p>
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+          <div class="hobby-icon">
+            <i class="fas fa-volleyball-ball" aria-hidden="true"></i>
+          </div>
+          <h5 class="mt-3 mb-1">Playing Volleyball</h5>
+          <p class="text-secondary-light small">Strategy and coordination</p>
         </div>
       </div>
     </div>
   </section>
 
-    <!-- Footer -->
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Abu Awaish. All rights reserved.</p>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-md-start mb-3 mb-md-0">
+          <h5 class="gradient-text d-inline">Let's Connect</h5>
+          <p class="mb-0">Feel free to reach out for collaborations or just a friendly hello!</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="social-links d-inline-block">
+            <a href="https://www.linkedin.com/in/abu-awaish-a6523b258/" target="_blank">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/abuawaish" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:abuawaishr@gmail.com">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4" style="border-color: rgba(124, 58, 237, 0.2);">
+      <p class="mb-0">&copy; 2025 Abu Awaish. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize AOS
     AOS.init({
       duration: 1000,
       once: false,
       mirror: true
+    });
+
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#7c3aed" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#7c3aed",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        }
+      },
+      retina_detect: true
+    });
+
+    // Animate progress bars on scroll
+    function animateProgressBars() {
+      const progressBars = document.querySelectorAll('.progress-fill');
+      progressBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        bar.style.width = width + '%';
+      });
+    }
+
+    // Trigger progress bar animation when in viewport
+    const observerOptions = {
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateProgressBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe the skills section
+    const skillsSection = document.querySelector('.section:nth-of-type(4)');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+
+    // Add smooth hover effect to all interactive elements
+    document.querySelectorAll('.skill-badge, .project-card, .btn-custom, .btn-outline-custom, .hobby-icon').forEach(el => {
+      el.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.3s ease';
+      });
     });
   </script>
 </body>
